@@ -69,7 +69,7 @@ Things you may want to cover:
 - belongs_to :item
 - belongs_to :address
 
-##addressesテーブル
+## addressesテーブル
 
 |Column|Type|Options|
 |------|----|-------|
