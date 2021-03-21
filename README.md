@@ -29,10 +29,12 @@ Things you may want to cover:
 |------|----|-------|
 |nickname|string|null: false, unique: true|
 |email|string|null: false, unique: true|
-|password|string|null: false|
-|lastname|string|null: false|
-|firstname|string|null: false|
-|birthday|integer|null: false|
+|encrypted_password|string|null: false|
+|last_name|string|null: false|
+|first_name|string|null: false|
+|last_name_reading|string|null: false|
+|first_name_reading|string|null: false|
+|birthday|date|null: false|
 
 ### Association
 - has_many :items
@@ -42,16 +44,14 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|image|string|null: false|
-|setsumei|text|null: false|
-|category|string|null: false|
-|status|string|null: false|
-|haisouhutan|string|null: false|
-|haisouchiiki|string|null: false|
-|haisounissuu|string|null: false|
+|description|text|null: false|
+|category_id|integer|null: false|
+|status_id|integer|null: false|
+|shipping_fee_id|integer|null: false|
+|prefectures_id|integer|null: false|
+|delivery_schedule_id|integer|null: false|
 |price|integer|null: false|
-|seller|string|null: false, unique: true|
-|user_id|integer|null: false, foreign_key: true|
+|user_id|references|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :user
@@ -61,24 +61,25 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|buyer|string|null: false, unique: true|
-|user_id|integer|null: false, foreign_key: true|
-|item_id|integer|null: false, foreign_key: true|
+|user_id|references|null: false, foreign_key: true|
+|item_id|references|null: false, foreign_key: true|
 
 ### Association
+- belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
 
 ## addressesテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|credit|integer|null: false|
-|postal code|integer|null: false|
-|prefectures|integer|null: false|
-|municipalities|integer|null: false|
-|address|integer|null: false|
-|tel|integer|null: false|
+|postal_code|string|null: false|
+|prefectures_id|integer|null: false|
+|municipalities|string|null: false|
+|address|string|null: false|
+|building|string||
+|tel|string|null: false|
+|record_id|references|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :record
