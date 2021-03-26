@@ -11,23 +11,8 @@ describe User do
       expect(@user).to be_valid
     end
 
-    #   # 5. passwordが存在してもpassword_confirmationが空では登録できないこと
-    #   it "is invalid without a password_confirmation" do
-    #     user = build(:user, password_confirmation: "")
-    #     user.valid?
-    #     expect(user.errors[:password_confirmation]).to include("doesn't match Password")
-    #   end
-
-    #   # 8. 重複したemailが存在する場合登録できないこと
-    #   it "is invalid with a duplicate email address" do
-    #     user = create(:user)
-    #     another_user = build(:user, email: user.email)
-    #     another_user.valid?
-    #     expect(another_user.errors[:email]).to include("has already been taken")
-    #   end
-
     it 'ニックネームが必須であること' do # 1
-      @user.nickname = '' # ""又はnilでもよい
+      @user.nickname = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:nickname]).to include("can't be blank")
     end
@@ -53,7 +38,7 @@ describe User do
     end
 
     it 'パスワードが必須であること' do # 5
-      @user.password = '' # ""又はnilでもよい
+      @user.password = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:password]).to include("can't be blank")
     end
@@ -77,13 +62,13 @@ describe User do
     end
 
     it 'ユーザー本名が、名字と名前それぞれ必須であること' do # 9-1(名字)
-      @user.last_name = '' # ""又はnilでもよい
+      @user.last_name = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:last_name]).to include("can't be blank")
     end
 
     it 'ユーザー本名が、名字と名前それぞれ必須であること' do # 9-2(名前)
-      @user.first_name = '' # ""又はnilでもよい
+      @user.first_name = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:first_name]).to include("can't be blank")
     end
@@ -101,13 +86,13 @@ describe User do
     end
 
     it 'ユーザー本名のフリガナが、名字と名前それぞれ必須であること' do # 11-1(名字)
-      @user.last_name_reading = '' # ""又はnilでもよい
+      @user.last_name_reading = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:last_name_reading]).to include("can't be blank")
     end
 
     it 'ユーザー本名のフリガナが、名字と名前それぞれ必須であること' do # 11-2(名前)
-      @user.first_name_reading = '' # ""又はnilでもよい
+      @user.first_name_reading = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:first_name_reading]).to include("can't be blank")
     end
@@ -125,9 +110,41 @@ describe User do
     end
 
     it '生年月日が必須であること' do # 13
-      @user.birthday = '' # ""又はnilでもよい
+      @user.birthday = '' # ''又はnilでもよい
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:birthday]).to include("can't be blank")
+    end
+
+    it 'パスワードとパスワード（確認用）は、値の一致が必須であること' do # 14
+      @user.password = '11111a'
+      @user.password_confirmation = '1111aa' # passwordと違う入力
+      @user.valid? # .valid?→異常系のテスト
+      expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
+      #121行目で発生したエラー分に"doesn't match Password"が含まれているかの確認
+    end
+
+    it 'パスワードは半角英語のみでは登録できないこと' do # 15
+      @user.password = 'aaaaaa' # 半角英語のみを入力
+      @user.valid?
+      expect(@user.errors[:password]).to include("パスワードは半角英数字混合で入力して下さい")
+    end
+
+    it 'パスワードは全角では登録できないこと' do # 16
+      @user.password = 'ああああああ' # 全角のみで入力
+      @user.valid?
+      expect(@user.errors[:password]).to include("パスワードは半角英数字混合で入力して下さい")
+    end
+
+    it 'フリガナは半角文字だと登録できないこと' do # 17-1(名字)
+      @user.last_name = 'aaaaaa' # 半角のみで入力
+      @user.valid?
+      expect(@user.errors[:last_name]).to include("は全角で入力してください。")
+    end
+
+    it 'フリガナは半角文字だと登録できないこと' do # 17-2(名前)
+      @user.first_name = 'aaaaaa' # 半角のみで入力
+      @user.valid?
+      expect(@user.errors[:first_name]).to include("は全角で入力してください。")
     end
   end
 end
