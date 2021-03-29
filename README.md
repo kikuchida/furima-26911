@@ -46,14 +46,14 @@ Things you may want to cover:
 |------|----|-------|
 |product|string|null: false|
 |description|text|null: false|
-|category_id|integer|null: false|
+|category_id|integer|null: false|<!-- belongs_toのアソシエーションを組むためには○○idが必要 -->
 |status_id|integer|null: false|
 |shipping_fee_id|integer|null: false|
 |prefecture_id|integer|null: false|
 |delivery_schedule_id|integer|null: false|
 |price|integer|null: false|
 |user|references|null: false, foreign_key: true|
-
+<!-- referencesは外部キーを作るための型 -->
 ### Association
 - belongs_to :user
 - has_one :record
