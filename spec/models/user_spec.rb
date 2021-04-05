@@ -7,7 +7,7 @@ describe User do
     end
 
     it 'is valid with a nickname, email, password, password_confirmation' do
-      # user = build(:user)
+      # user = build(:user) 6行目と同じ内容なので不要
       expect(@user).to be_valid
     end
 
