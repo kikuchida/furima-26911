@@ -7,7 +7,7 @@ describe User do
     end
 
     it 'is valid with a nickname, email, password, password_confirmation' do
-      # user = build(:user)
+      # user = build(:user) 6行目と同じ内容なので不要
       expect(@user).to be_valid
     end
 
@@ -120,31 +120,31 @@ describe User do
       @user.password_confirmation = '1111aa' # passwordと違う入力
       @user.valid? # .valid?→異常系のテスト
       expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
-      #121行目で発生したエラー分に"doesn't match Password"が含まれているかの確認
+      # 121行目で発生したエラー分に"doesn't match Password"が含まれているかの確認
     end
 
     it 'パスワードは半角英語のみでは登録できないこと' do # 15
       @user.password = 'aaaaaa' # 半角英語のみを入力
       @user.valid?
-      expect(@user.errors[:password]).to include("パスワードは半角英数字混合で入力して下さい")
+      expect(@user.errors[:password]).to include('パスワードは半角英数字混合で入力して下さい')
     end
 
     it 'パスワードは全角では登録できないこと' do # 16
       @user.password = 'ああああああ' # 全角のみで入力
       @user.valid?
-      expect(@user.errors[:password]).to include("パスワードは半角英数字混合で入力して下さい")
+      expect(@user.errors[:password]).to include('パスワードは半角英数字混合で入力して下さい')
     end
 
     it 'フリガナは半角文字だと登録できないこと' do # 17-1(名字)
       @user.last_name = 'aaaaaa' # 半角のみで入力
       @user.valid?
-      expect(@user.errors[:last_name]).to include("は全角で入力してください。")
+      expect(@user.errors[:last_name]).to include('は全角で入力してください。')
     end
 
     it 'フリガナは半角文字だと登録できないこと' do # 17-2(名前)
       @user.first_name = 'aaaaaa' # 半角のみで入力
       @user.valid?
-      expect(@user.errors[:first_name]).to include("は全角で入力してください。")
+      expect(@user.errors[:first_name]).to include('は全角で入力してください。')
     end
   end
 end
