@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:new]
+
   def index
   end
 
@@ -16,6 +18,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_params
     params.require(:item).permit(:image, :product, :description, :category_id, :status_id, :shipping_fee_id, :prefecture_id, :delivery_schedule_id, :price).merge(user_id: current_user.id)
 # params.require(:モデル名)  # 取得したい情報を指定する
