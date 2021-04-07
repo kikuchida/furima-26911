@@ -100,13 +100,20 @@ describe Item do
       expect(@item.errors[:price]).to include("can't be blank")
     end
 
-    it '価格の範囲が¥300~¥9,999,999の間であること' do # 15
+    it '価格が¥300未満では登録できないこと' do # 15
       @item.price = 200
       @item.valid?
       expect(@item.errors[:price]).to include('must be greater than or equal to 300')
     end
 
-    it '販売価格は半角数字のみ保存可能であること' do # 16
+    it '価格が¥10,000,000以上では登録できないこと' do # 16
+      @item.price = 10000000
+      @item.valid?
+      expect(@item.errors[:price]).to include('must be less than or equal to 9999999')
+    end
+
+
+    it '販売価格は半角数字のみ保存可能であること' do # 17
       @item.price = '１２３４５' # 全角数字を入力
       @item.valid?
       expect(@item.errors[:price]).to include('is not a number')
