@@ -107,11 +107,10 @@ describe Item do
     end
 
     it '価格が¥10,000,000以上では登録できないこと' do # 16
-      @item.price = 10000000
+      @item.price = 10_000_000
       @item.valid?
       expect(@item.errors[:price]).to include('must be less than or equal to 9999999')
     end
-
 
     it '販売価格は半角数字のみ保存可能であること' do # 17
       @item.price = '１２３４５' # 全角数字を入力
