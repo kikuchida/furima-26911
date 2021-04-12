@@ -28,10 +28,10 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)  #正しく保存できるならという記述
+    if @item.update(item_params)  # 正しく保存できるならという記述
       redirect_to action: :show
     else
-      render :edit #ダメならedit.htmlに戻るという設定する
+      render :edit # ダメならedit.htmlに戻るという設定する
     end
   end
 
