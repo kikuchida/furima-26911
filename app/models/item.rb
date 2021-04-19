@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :delivery_schedule
   belongs_to :user
+  has_one :record
 
   # 空の投稿を保存できないようにする
   validates :image, :product, :description, :category_id, :status_id, :shipping_fee_id, :prefecture_id, :delivery_schedule_id,

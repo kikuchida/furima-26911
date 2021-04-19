@@ -1,6 +1,6 @@
 class RecordAddress
   include ActiveModel::Model
-  attr_accessor :user, :item, :postal_code, :prefecture_id, :municipality, :address, :building, :tel, :record
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :address, :building, :tel, :record
 
   with_options presence: true do
     # recordsテーブルのバリデーション
