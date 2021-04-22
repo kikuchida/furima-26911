@@ -8,10 +8,10 @@ class RecordAddress
     validates :item_id
     # addressesテーブルのバリデーション
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
-    validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" } # numericality（数値であること）
+    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" } # numericality（数値であること）
     validates :municipality
     validates :address
-    validates :tel
+    validates :tel, format: { with: /\A\d{11}\z/, message: "電話番号にはハイフンは不要で、11桁以内であること" }
   end
 
   def save
