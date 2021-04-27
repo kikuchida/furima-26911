@@ -43,13 +43,13 @@ describe RecordAddress do
     it '郵便番号にはハイフンが必須であること' do # 7
       @record_address.postal_code = ''
       @record_address.valid?
-      expect(@record_address.errors[:postal_code]).to include("is invalid. Include hyphen(-)")
+      expect(@record_address.errors[:postal_code]).to include('is invalid. Include hyphen(-)')
     end
 
     it '電話番号にはハイフンは不要で、11桁以内であること' do # 8
       @record_address.tel = '123456789012345'
       @record_address.valid?
-      expect(@record_address.errors[:tel]).to include("電話番号にはハイフンは不要で、11桁以内であること")
+      expect(@record_address.errors[:tel]).to include('電話番号にはハイフンは不要で、11桁以内であること')
     end
 
     it 'tokenが空では登録できないこと' do
