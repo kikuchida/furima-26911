@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user_id || !@item.record.nil?
-    # 現在ログインしているユーザーと出品者が一致しているか
     @record_address = RecordAddress.new
   end
 
@@ -33,9 +32,9 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @item.price, # 商品の値段
-      card: record_params[:token],    # カードトークン
-      currency: 'jpy'                 # 通貨の種類（日本円）
+      amount: @item.price,
+      card: record_params[:token],
+      currency: 'jpy'
     )
   end
 end

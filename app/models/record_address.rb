@@ -1,7 +1,6 @@
 class RecordAddress
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :address, :building, :tel, :record_id, :token
-
   # :tokenは、orders_controllerモデルにtokenという属性が存在しない。使用できるようにするために書く
 
   with_options presence: true do
