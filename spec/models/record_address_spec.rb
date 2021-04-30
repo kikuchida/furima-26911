@@ -64,10 +64,10 @@ describe RecordAddress do
         expect(@record_address.errors[:postal_code]).to include('is invalid. Include hyphen(-)')
       end
 
-      it '電話番号にはハイフンは不要で、11桁以内であること' do
-        @record_address.tel = '123456789012345'
+      it '電話番号は数字のみで、11桁以内であること' do
+        @record_address.tel = '0901234abcd'
         @record_address.valid?
-        expect(@record_address.errors[:tel]).to include('電話番号にはハイフンは不要で、11桁以内であること')
+        expect(@record_address.errors[:tel]).to include('電話番号は数字のみで、11桁以内であること')
       end
 
       it 'tokenが空では登録できないこと' do
