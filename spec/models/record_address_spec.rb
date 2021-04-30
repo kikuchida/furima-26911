@@ -15,6 +15,11 @@ describe RecordAddress do
       it 'すべての値が正しく入力されていて、且つ建物名は空でも保存できること' do
         expect(@record_address).to be_valid
       end
+
+      it '電話番号が10桁でも登録できること' do
+        @record_address.tel = 1234567890
+        expect(@record_address).to be_valid
+      end
       
       it '建物名が空でも保存できること' do
         @record_address.building = ''
@@ -64,10 +69,10 @@ describe RecordAddress do
         expect(@record_address.errors[:postal_code]).to include('is invalid. Include hyphen(-)')
       end
 
-      it '電話番号は数字のみで、11桁以内であること' do
+      it '電話番号は数字のみで、10桁又は11桁以内であること' do
         @record_address.tel = '0901234abcd'
         @record_address.valid?
-        expect(@record_address.errors[:tel]).to include('電話番号は数字のみで、11桁以内であること')
+        expect(@record_address.errors[:tel]).to include('電話番号は数字のみで、10桁又は11桁以内であること')
       end
 
       it 'tokenが空では登録できないこと' do
